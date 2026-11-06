@@ -1,6 +1,7 @@
 extends Node2D
 
 const PLATFORM_TEXTURE := preload("res://assets/sprites/platforms.png")
+const WORLD_TEXTURE := preload("res://assets/sprites/world_tileset.png")
 const PIXEL_FONT := preload("res://assets/fonts/PixelOperator8-Bold.ttf")
 const COIN_SOUND := preload("res://assets/sounds/coin.wav")
 const HURT_SOUND := preload("res://assets/sounds/hurt.wav")
@@ -14,6 +15,7 @@ const LEVELS := [
 		"far_hills": Color("#a7f0d1"),
 		"near_hills": Color("#54c887"),
 		"platform_row": 0,
+		"tile_column": 0,
 		"sun": Color("#ffe56b"),
 		"width": 960,
 		"jokes": [
@@ -49,6 +51,7 @@ const LEVELS := [
 		"far_hills": Color("#d990c6"),
 		"near_hills": Color("#8464b2"),
 		"platform_row": 1,
+		"tile_column": 2,
 		"sun": Color("#fff078"),
 		"width": 1080,
 		"jokes": [
@@ -87,6 +90,7 @@ const LEVELS := [
 		"far_hills": Color("#b9a2ff"),
 		"near_hills": Color("#f18fc7"),
 		"platform_row": 3,
+		"tile_column": 5,
 		"sun": Color("#fff7ad"),
 		"width": 1150,
 		"jokes": [
@@ -128,6 +132,7 @@ const LEVELS := [
 		"far_hills": Color("#d8c2ff"),
 		"near_hills": Color("#ff9ed6"),
 		"platform_row": 3,
+		"tile_column": 7,
 		"sun": Color("#fff5a8"),
 		"width": 1180,
 		"jokes": [
@@ -166,6 +171,7 @@ const LEVELS := [
 		"far_hills": Color("#5857a0"),
 		"near_hills": Color("#9562b0"),
 		"platform_row": 1,
+		"tile_column": 8,
 		"sun": Color("#fff1b5"),
 		"width": 1200,
 		"jokes": [
@@ -205,6 +211,7 @@ const LEVELS := [
 		"far_hills": Color("#624277"),
 		"near_hills": Color("#a44890"),
 		"platform_row": 2,
+		"tile_column": 4,
 		"sun": Color("#ff9de1"),
 		"width": 980,
 		"jokes": [
@@ -258,6 +265,7 @@ func _ready() -> void:
 	_create_hud()
 	_setup_music()
 	_create_background(LEVELS[0])
+	_create_scenery(LEVELS[0])
 	for platform in LEVELS[0]["platforms"]:
 		_create_platform(platform["x"], platform["y"], platform["w"], platform["h"])
 	_create_title_screen()
@@ -456,6 +464,7 @@ func load_level(level_index: int) -> void:
 	total_coins_this_level = level_data["coins"].size()
 
 	_create_background(level_data)
+	_create_scenery(level_data)
 
 	for platform in level_data["platforms"]:
 		_create_platform(platform["x"], platform["y"], platform["w"], platform["h"])
@@ -682,6 +691,107 @@ func _add_star(parent: Node2D, center: Vector2, radius: float, color: Color) -> 
 	star.color = color
 	parent.add_child(star)
 
+func _create_scenery(level_data: Dictionary) -> void:
+	var scenery := Node2D.new()
+	scenery.name = "TileAndFoliageScenery"
+	scenery.z_index = -3
+	world.add_child(scenery)
+
+	var world_width: int = level_data["width"]
+	var tile_column: int = level_data["tile_column"]
+	var tile_index := 0
+	for x in range(-16, world_width + 16, 16):
+		var column := tile_column
+		if tile_index % 7 == 0:
+			column = (tile_column + 1) % 9
+		_add_atlas_tile(scenery, Vector2(x, 420), column, 16)
+		_add_atlas_tile(scenery, Vector2(x, 436), column, 32)
+		tile_index += 1
+
+	var forest_props := [
+		"bush", "tree", "rock", "mushroom_orange", "palm",
+		"bush", "tree", "rock", "mushroom_purple", "cactus",
+	]
+	var dessert_props := [
+		"mushroom_orange", "rock", "cactus", "bush", "mushroom_purple",
+		"rock", "tree", "mushroom_orange", "bush", "palm",
+	]
+	var night_props := [
+		"crystal", "rock", "mushroom_purple", "cactus", "crystal",
+		"bush", "mushroom_orange", "rock", "crystal", "palm",
+	]
+	var prop_sets: Array = [forest_props, dessert_props, night_props, forest_props, night_props, dessert_props]
+	var props: Array = prop_sets[current_level_index]
+	var prop_index := 0
+	for x in range(95, world_width, 145):
+		var prop_name: String = props[prop_index % props.size()]
+		var size := 1.0
+		if prop_name == "tree" or prop_name == "palm":
+			size = 1.35
+		_create_atlas_prop(scenery, prop_name, Vector2(x, 378), size, prop_index % 2 == 1)
+		prop_index += 1
+
+	var platform_index := 0
+	for platform_data in level_data["platforms"]:
+		if platform_index % 2 == 0 and platform_data["w"] >= 100:
+			var top_y: float = platform_data["y"]
+			var prop_x: float = platform_data["x"] + platform_data["w"] - 14.0
+			var kind := "rock" if platform_index % 4 == 0 else "mushroom_orange"
+			_create_atlas_prop(scenery, kind, Vector2(prop_x, top_y), 0.9, platform_index % 3 == 0)
+		platform_index += 1
+
+func _add_atlas_tile(parent: Node2D, center: Vector2, atlas_column: int, atlas_row: int) -> void:
+	var tile := Sprite2D.new()
+	var atlas := AtlasTexture.new()
+	atlas.atlas = WORLD_TEXTURE
+	atlas.region = Rect2(Vector2(atlas_column * 16, atlas_row), Vector2(16, 16))
+	tile.texture = atlas
+	tile.position = center
+	parent.add_child(tile)
+
+func _create_atlas_prop(
+	parent: Node2D,
+	kind: String,
+	ground_position: Vector2,
+	prop_scale: float = 1.0,
+	flip_h: bool = false
+) -> void:
+	var region: Rect2
+	match kind:
+		"tree":
+			region = Rect2(0, 48, 16, 48)
+		"palm":
+			region = Rect2(32, 80, 48, 64)
+		"bush":
+			region = Rect2(16, 64, 16, 16)
+		"rock":
+			region = Rect2(96, 80, 16, 16)
+		"mushroom_orange":
+			region = Rect2(112, 88, 16, 16)
+		"mushroom_purple":
+			region = Rect2(112, 112, 16, 16)
+		"cactus":
+			region = Rect2(80, 48, 16, 40)
+		"crystal":
+			region = Rect2(80, 48, 16, 40)
+		_:
+			push_error("Unknown scenery prop: %s" % kind)
+			return
+
+	var sprite := Sprite2D.new()
+	var atlas := AtlasTexture.new()
+	atlas.atlas = WORLD_TEXTURE
+	atlas.region = region
+	sprite.texture = atlas
+	sprite.centered = false
+	sprite.flip_h = flip_h
+	sprite.scale = Vector2(prop_scale, prop_scale)
+	sprite.position = Vector2(
+		ground_position.x - region.size.x * prop_scale / 2.0,
+		ground_position.y - region.size.y * prop_scale
+	)
+	parent.add_child(sprite)
+
 func _add_circle(parent: Node2D, center: Vector2, radius: float, color: Color) -> void:
 	var circle := Polygon2D.new()
 	var points := PackedVector2Array()
@@ -802,7 +912,7 @@ func _on_enemy_body_entered(body: Node2D, enemy: Area2D) -> void:
 	if body != player or not is_instance_valid(enemy):
 		return
 	if player.velocity.y > 45.0 and player.global_position.y < enemy.global_position.y + 24.0:
-		enemy.monitoring = false
+		enemy.set_deferred("monitoring", false)
 		enemy.queue_free()
 		player.velocity.y = -260.0
 		_play_sfx(POWER_UP_SOUND)
@@ -832,6 +942,7 @@ func _create_platform(
 	platform.add_child(collision_shape)
 
 	var tile_row: int = LEVELS[current_level_index]["platform_row"]
+	var tile_column: int = LEVELS[current_level_index]["tile_column"]
 	var tile_count := int(ceil(width / 16.0))
 	var remaining_width := width
 	var tile_left := -width / 2.0
@@ -845,6 +956,16 @@ func _create_platform(
 		tile.position = Vector2(tile_left + tile_width / 2.0, 0)
 		tile.scale.x = tile_width / 16.0
 		platform.add_child(tile)
+
+		var dirt_face := Sprite2D.new()
+		var dirt_atlas := AtlasTexture.new()
+		dirt_atlas.atlas = WORLD_TEXTURE
+		dirt_atlas.region = Rect2(Vector2(tile_column * 16, 16), Vector2(16, 16))
+		dirt_face.texture = dirt_atlas
+		dirt_face.position = Vector2(tile_left + tile_width / 2.0, height / 2.0 + 13.0)
+		dirt_face.scale.x = tile_width / 16.0
+		platform.add_child(dirt_face)
+
 		tile_left += tile_width
 		remaining_width -= tile_width
 	if moving:
@@ -914,7 +1035,7 @@ func _on_goal_reached(body: Node2D) -> void:
 		return
 	if goal_area == null:
 		return
-	goal_area.monitoring = false
+	goal_area.set_deferred("monitoring", false)
 	level_transitioning = true
 	_play_sfx(POWER_UP_SOUND)
 	if current_level_index < LEVELS.size() - 1:

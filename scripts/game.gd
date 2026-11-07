@@ -10,7 +10,8 @@ const LEVEL_SCENES: Array[PackedScene] = [
 	preload("res://scenes/levels/big_slime_boss.tscn"),
 ]
 
-@onready var scene_container: Node2D = $SceneContainer
+@onready var world_container: Node2D = $World
+@onready var ui_container: CanvasLayer = $UI
 
 var current_level_index := 0
 var current_scene: Node
@@ -25,7 +26,7 @@ func _show_title() -> void:
 	_clear_current_scene()
 	current_scene = TITLE_SCENE.instantiate()
 	current_scene.connect("start_pressed", _start_game)
-	scene_container.add_child(current_scene)
+	ui_container.add_child(current_scene)
 
 func _start_game() -> void:
 	playing = true
@@ -42,7 +43,7 @@ func _load_level(level_index: int) -> void:
 	current_scene.connect("completed", _on_level_completed)
 	current_scene.connect("failed", _on_level_failed)
 	current_scene.connect("boss_beaten", _on_boss_beaten)
-	scene_container.add_child(current_scene)
+	world_container.add_child(current_scene)
 
 func _on_level_completed() -> void:
 	_load_level(current_level_index + 1)
@@ -56,11 +57,13 @@ func _on_boss_beaten() -> void:
 	current_scene = TITLE_SCENE.instantiate()
 	current_scene.call("set_victory")
 	current_scene.connect("start_pressed", _start_game)
-	scene_container.add_child(current_scene)
+	ui_container.add_child(current_scene)
 
 func _clear_current_scene() -> void:
 	if is_instance_valid(current_scene):
-		scene_container.remove_child(current_scene)
+		var parent = current_scene.get_parent()
+		if parent:
+			parent.remove_child(current_scene)
 		current_scene.queue_free()
 		current_scene = null
 

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/world_tileset.png" id="1_atlas"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rock"]
+atlas = ExtResource("1_atlas")
+region = Rect2(96, 80, 16, 16)
+
+[node name="Rock" type="Node2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_rock")
+texture_filter = 1

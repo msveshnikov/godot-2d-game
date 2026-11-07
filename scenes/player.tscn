@@ -50,7 +50,7 @@ _data = {
 &"new_animation": SubResource("Animation_tuyoq")
 }
 
-[node name="player" type="CharacterBody2D" unique_id=1896522590]
+[node name="player" type="CharacterBody2D" unique_id=1896522590 groups=["player"]]
 script = ExtResource("1_g2els")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2107630617]
@@ -63,6 +63,15 @@ sprite_frames = SubResource("SpriteFrames_k14vv")
 autoplay = "default"
 frame = 3
 frame_progress = 0.9745872
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.7, 1.7)
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
+limit_left = -60
+limit_right = 1200
+limit_top = -180
+limit_bottom = 460
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=602508103]
 libraries/ = SubResource("AnimationLibrary_fjrip")

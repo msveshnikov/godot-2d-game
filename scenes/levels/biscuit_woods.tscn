@@ -1,0 +1,124 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_level"]
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/hud.tscn" id="3_hud"]
+[ext_resource type="PackedScene" path="res://scenes/objects/platform.tscn" id="4_platform"]
+[ext_resource type="PackedScene" path="res://scenes/objects/coin.tscn" id="5_coin"]
+[ext_resource type="PackedScene" path="res://scenes/objects/slime.tscn" id="6_slime"]
+[ext_resource type="PackedScene" path="res://scenes/objects/moving_platform.tscn" id="7_moving"]
+[ext_resource type="PackedScene" path="res://scenes/objects/goal.tscn" id="8_goal"]
+[ext_resource type="PackedScene" path="res://scenes/objects/tree.tscn" id="9_tree"]
+[ext_resource type="PackedScene" path="res://scenes/objects/rock.tscn" id="10_rock"]
+[ext_resource type="PackedScene" path="res://scenes/objects/mushroom.tscn" id="11_mushroom"]
+
+[node name="BiscuitWoods" type="Node2D"]
+script = ExtResource("1_level")
+level_title = "Biscuit Woods"
+world_width = 960
+
+[node name="Background" type="Node2D" parent="."]
+z_index = -20
+
+[node name="Sky" type="Polygon2D" parent="Background"]
+polygon = PackedVector2Array(-200, -200, 1200, -200, 1200, 600, -200, 600)
+color = Color(0.46, 0.86, 1, 1)
+
+[node name="FarHills" type="Polygon2D" parent="Background"]
+polygon = PackedVector2Array(-100, 240, 40, 145, 180, 218, 350, 125, 520, 220, 680, 145, 850, 218, 1040, 130, 1200, 230, 1200, 600, -100, 600)
+color = Color(0.68, 0.91, 0.78, 1)
+
+[node name="NearHills" type="Polygon2D" parent="Background"]
+polygon = PackedVector2Array(-100, 310, 80, 225, 240, 300, 420, 220, 590, 305, 770, 225, 960, 310, 1120, 240, 1200, 300, 1200, 600, -100, 600)
+color = Color(0.29, 0.72, 0.48, 1)
+
+[node name="Scenery" type="Node2D" parent="."]
+z_index = -2
+
+[node name="Tree1" parent="Scenery" instance=ExtResource("9_tree")]
+position = Vector2(80, 420)
+scale = Vector2(1.6, 1.6)
+
+[node name="Tree2" parent="Scenery" instance=ExtResource("9_tree")]
+position = Vector2(280, 420)
+scale = Vector2(1.2, 1.2)
+
+[node name="Tree3" parent="Scenery" instance=ExtResource("9_tree")]
+position = Vector2(600, 420)
+scale = Vector2(1.45, 1.45)
+
+[node name="Tree4" parent="Scenery" instance=ExtResource("9_tree")]
+position = Vector2(910, 420)
+scale = Vector2(1.7, 1.7)
+
+[node name="Rock1" parent="Scenery" instance=ExtResource("10_rock")]
+position = Vector2(370, 310)
+
+[node name="Mushroom1" parent="Scenery" instance=ExtResource("11_mushroom")]
+position = Vector2(565, 190)
+
+[node name="Mushroom2" parent="Scenery" instance=ExtResource("11_mushroom")]
+position = Vector2(815, 158)
+scale = Vector2(1.3, 1.3)
+
+[node name="Platform1" parent="." instance=ExtResource("4_platform")]
+position = Vector2(64, 329)
+tile_column = 0
+
+[node name="Platform2" parent="." instance=ExtResource("4_platform")]
+position = Vector2(210, 298)
+tile_column = 0
+
+[node name="Platform3" parent="." instance=ExtResource("4_platform")]
+position = Vector2(356, 267)
+tile_column = 0
+
+[node name="Platform4" parent="." instance=ExtResource("4_platform")]
+position = Vector2(502, 236)
+tile_column = 0
+
+[node name="Platform5" parent="." instance=ExtResource("4_platform")]
+position = Vector2(648, 205)
+tile_column = 0
+
+[node name="Platform6" parent="." instance=ExtResource("4_platform")]
+position = Vector2(794, 174)
+tile_column = 0
+
+[node name="MovingPlatform1" parent="." instance=ExtResource("7_moving")]
+position = Vector2(138, 308)
+travel = Vector2(0, 22)
+cycles_per_second = 0.35
+
+[node name="MovingPlatform2" parent="." instance=ExtResource("7_moving")]
+position = Vector2(430, 250)
+travel = Vector2(0, 20)
+cycles_per_second = 0.28
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(64, 320)
+
+[node name="Slime1" parent="." instance=ExtResource("6_slime")]
+position = Vector2(250, 288)
+patrol_distance = 42.0
+move_speed = 36.0
+
+[node name="Coin1" parent="." instance=ExtResource("5_coin")]
+position = Vector2(125, 275)
+
+[node name="Coin2" parent="." instance=ExtResource("5_coin")]
+position = Vector2(270, 245)
+
+[node name="Coin3" parent="." instance=ExtResource("5_coin")]
+position = Vector2(415, 215)
+
+[node name="Coin4" parent="." instance=ExtResource("5_coin")]
+position = Vector2(565, 185)
+
+[node name="Coin5" parent="." instance=ExtResource("5_coin")]
+position = Vector2(710, 155)
+
+[node name="Goal" parent="." instance=ExtResource("8_goal")]
+position = Vector2(835, 145)
+
+[node name="HUD" parent="." instance=ExtResource("3_hud")]

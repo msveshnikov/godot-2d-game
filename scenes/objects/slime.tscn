@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/slime.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/slime_green.png" id="2_green"]
+[ext_resource type="Texture2D" path="res://assets/sprites/slime_purple.png" id="3_purple"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_slime"]
+size = Vector2(20, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_green"]
+atlas = ExtResource("2_green")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_purple"]
+atlas = ExtResource("3_purple")
+region = Rect2(0, 0, 24, 24)
+
+[node name="Slime" type="Area2D" groups=["slimes"]]
+script = ExtResource("1_script")
+patrol_distance = 48.0
+move_speed = 38.0
+collision_layer = 4
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_slime")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+texture = SubResource("AtlasTexture_green")
+texture_filter = 1

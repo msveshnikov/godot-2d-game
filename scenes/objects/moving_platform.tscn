@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/moving_platform.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/platforms.png" id="2_tiles"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_moving"]
+size = Vector2(64, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_moving"]
+atlas = ExtResource("2_tiles")
+region = Rect2(0, 0, 64, 16)
+
+[node name="MovingPlatform" type="AnimatableBody2D"]
+script = ExtResource("1_script")
+travel = Vector2(0, 42)
+cycles_per_second = 0.3
+sync_to_physics = true
+collision_layer = 1
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_moving")
+
+[node name="Visual" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = SubResource("AtlasTexture_moving")
+texture_filter = 1
+
+[node name="DirectionArrow" type="Polygon2D" parent="."]
+position = Vector2(0, -17)
+polygon = PackedVector2Array(-5, 4, 0, -4, 5, 4)
+color = Color(1, 0.95, 0.55, 1)

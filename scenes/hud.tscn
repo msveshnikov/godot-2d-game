@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="FontFile" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="1_font"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud"]
+bg_color = Color(0.13, 0.11, 0.27, 0.9)
+border_color = Color(1, 0.94, 0.66, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 390.0
+offset_bottom = 78.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud")
+
+[node name="TitleLabel" type="Label" parent="Panel"]
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 370.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(1, 0.94, 0.66, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 16
+text = "WORLD"
+
+[node name="StatusLabel" type="Label" parent="Panel"]
+offset_left = 10.0
+offset_top = 34.0
+offset_right = 370.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 12
+text = "Collect coins and find the flag!"
+
+[node name="BossHealth" type="ProgressBar" parent="."]
+visible = false
+offset_left = 12.0
+offset_top = 86.0
+offset_right = 312.0
+offset_bottom = 108.0
+max_value = 4.0
+value = 4.0
+show_percentage = false

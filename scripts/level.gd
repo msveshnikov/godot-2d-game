@@ -15,6 +15,8 @@ const COIN_COLLECT_SOUND := preload("res://assets/sounds/coin.wav")
 @onready var status_label: Label = $HUD/Panel/StatusLabel
 @onready var title_label: Label = $HUD/Panel/TitleLabel
 @onready var boss_health: ProgressBar = $HUD/BossHealth
+@onready var death_notice: Panel = $HUD/DeathNotice
+@onready var death_label: Label = $HUD/DeathNotice/DeathLabel
 
 var enemy_death_audio: AudioStreamPlayer
 var player_hurt_audio: AudioStreamPlayer
@@ -72,7 +74,7 @@ func _on_hazard_hit() -> void:
 	if transition_pending:
 		return
 	player_hurt_audio.play()
-	_on_player_died()
+	_begin_level_restart("ENEMY GOT YOU!")
 
 func _on_goal_entered(body: Node2D) -> void:
 	if body != player or transition_pending:
@@ -99,11 +101,17 @@ func _on_boss_stomped() -> void:
 		_update_status("BONK! %d more good head-bonks!" % (4 - boss_hits))
 
 func _on_player_died() -> void:
+	_begin_level_restart("YOU FELL!")
+
+func _begin_level_restart(reason: String) -> void:
 	if transition_pending:
 		return
 	transition_pending = true
-	_update_status("Oops! Try that bit again...")
-	await get_tree().create_timer(0.55).timeout
+	player.set_physics_process(false)
+	death_label.text = "%s\nLEVEL RESTARTING..." % reason
+	death_notice.show()
+	_update_status("%s Restarting level..." % reason)
+	await get_tree().create_timer(1.2).timeout
 	if is_inside_tree():
 		failed.emit()
 

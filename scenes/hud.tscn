@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="FontFile" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="1_font"]
 
@@ -13,6 +13,18 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_death"]
+bg_color = Color(0.38, 0.07, 0.12, 0.96)
+border_color = Color(1, 0.68, 0.59, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="HUD" type="CanvasLayer"]
 
@@ -52,3 +64,31 @@ offset_bottom = 108.0
 max_value = 4.0
 value = 4.0
 show_percentage = false
+
+[node name="DeathNotice" type="Panel" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -48.0
+offset_right = 200.0
+offset_bottom = 48.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_death")
+
+[node name="DeathLabel" type="Label" parent="DeathNotice"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 388.0
+offset_bottom = 88.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.18, 0.02, 0.03, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 18
+text = "ENEMY GOT YOU!\nLEVEL RESTARTING..."
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -4,6 +4,10 @@ signal completed
 signal failed
 signal boss_beaten
 
+const ENEMY_DEATH_SOUND := preload("res://assets/sounds/explosion.wav")
+const PLAYER_HURT_SOUND := preload("res://assets/sounds/hurt.wav")
+const COIN_COLLECT_SOUND := preload("res://assets/sounds/coin.wav")
+
 @export var level_title := "World"
 @export var world_width := 1200
 
@@ -12,6 +16,9 @@ signal boss_beaten
 @onready var title_label: Label = $HUD/Panel/TitleLabel
 @onready var boss_health: ProgressBar = $HUD/BossHealth
 
+var enemy_death_audio: AudioStreamPlayer
+var player_hurt_audio: AudioStreamPlayer
+var coin_collect_audio: AudioStreamPlayer
 var coins_collected := 0
 var coin_total := 0
 var transition_pending := false
@@ -19,6 +26,15 @@ var boss_node: Area2D
 var boss_hits := 0
 
 func _ready() -> void:
+	enemy_death_audio = AudioStreamPlayer.new()
+	enemy_death_audio.stream = ENEMY_DEATH_SOUND
+	add_child(enemy_death_audio)
+	player_hurt_audio = AudioStreamPlayer.new()
+	player_hurt_audio.stream = PLAYER_HURT_SOUND
+	add_child(player_hurt_audio)
+	coin_collect_audio = AudioStreamPlayer.new()
+	coin_collect_audio.stream = COIN_COLLECT_SOUND
+	add_child(coin_collect_audio)
 	title_label.text = level_title.to_upper()
 	$Player/Camera2D.limit_right = world_width
 	$Player/Camera2D.make_current()
@@ -45,12 +61,17 @@ func _ready() -> void:
 
 func _on_coin_collected() -> void:
 	coins_collected += 1
+	coin_collect_audio.play()
 	_update_status("Coins %d / %d  ·  Find the flag!" % [coins_collected, coin_total])
 
 func _on_slime_stomped() -> void:
+	enemy_death_audio.play()
 	_update_status("SPLAT! The slime is now floor jam.")
 
 func _on_hazard_hit() -> void:
+	if transition_pending:
+		return
+	player_hurt_audio.play()
 	_on_player_died()
 
 func _on_goal_entered(body: Node2D) -> void:
@@ -69,6 +90,7 @@ func _on_boss_stomped() -> void:
 	boss_health.value = 4 - boss_hits
 	if boss_hits >= 4:
 		transition_pending = true
+		enemy_death_audio.play()
 		_update_status("THE BIG SLIME SURRENDERS!")
 		await get_tree().create_timer(0.7).timeout
 		if is_inside_tree():

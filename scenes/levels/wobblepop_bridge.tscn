@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_level"]
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2_player"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" path="res://scenes/objects/tree.tscn" id="9_tree"]
 [ext_resource type="PackedScene" path="res://scenes/objects/rock.tscn" id="10_rock"]
 [ext_resource type="PackedScene" path="res://scenes/objects/mushroom.tscn" id="11_mushroom"]
+[ext_resource type="PackedScene" path="res://scenes/objects/sign.tscn" id="12_sign"]
 
 [node name="WobblepopBridge" type="Node2D"]
 script = ExtResource("1_level")
@@ -23,6 +24,17 @@ z_index = -20
 [node name="Sky" type="Polygon2D" parent="Background"]
 polygon = PackedVector2Array(-200, -200, 1400, -200, 1400, 600, -200, 600)
 color = Color(1, 0.67, 0.48, 1)
+
+[node name="Cloud1" type="Polygon2D" parent="Background"]
+position = Vector2(240, 150)
+polygon = PackedVector2Array(-42, 4, -38, -7, -29, -8, -24, -18, -12, -20, -3, -13, 8, -16, 18, -10, 21, -3, 34, -3, 40, 4, 36, 11, -37, 12)
+color = Color(1, 0.88, 0.84, 0.82)
+
+[node name="Cloud2" type="Polygon2D" parent="Background"]
+position = Vector2(780, 110)
+scale = Vector2(0.75, 0.75)
+polygon = PackedVector2Array(-42, 4, -38, -7, -29, -8, -24, -18, -12, -20, -3, -13, 8, -16, 18, -10, 21, -3, 34, -3, 40, 4, 36, 11, -37, 12)
+color = Color(1, 0.88, 0.84, 0.76)
 
 [node name="FarHills" type="Polygon2D" parent="Background"]
 polygon = PackedVector2Array(-100, 255, 40, 175, 200, 220, 380, 125, 550, 225, 730, 150, 920, 225, 1100, 140, 1350, 245, 1350, 600, -100, 600)
@@ -56,6 +68,13 @@ position = Vector2(390, 230)
 [node name="Mushroom2" parent="Scenery" instance=ExtResource("11_mushroom")]
 position = Vector2(700, 190)
 scale = Vector2(1.4, 1.4)
+
+[node name="Mushroom3" parent="Scenery" instance=ExtResource("11_mushroom")]
+position = Vector2(560, 405)
+
+[node name="BridgeNotice" parent="Scenery" instance=ExtResource("12_sign")]
+position = Vector2(170, 420)
+sign_text = "BRIDGE: MAYBE OK"
 
 [node name="Platform1" parent="." instance=ExtResource("4_platform")]
 position = Vector2(64, 329)

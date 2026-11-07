@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_level"]
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2_player"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" path="res://scenes/objects/rock.tscn" id="10_rock"]
 [ext_resource type="PackedScene" path="res://scenes/objects/mushroom.tscn" id="11_mushroom"]
 [ext_resource type="PackedScene" path="res://scenes/objects/tree.tscn" id="12_tree"]
+[ext_resource type="PackedScene" path="res://scenes/objects/sign.tscn" id="13_sign"]
 
 [node name="CloudtopCircus" type="Node2D"]
 script = ExtResource("1_level")
@@ -24,6 +25,17 @@ z_index = -20
 [node name="Sky" type="Polygon2D" parent="Background"]
 polygon = PackedVector2Array(-200, -200, 1400, -200, 1400, 620, -200, 620)
 color = Color(0.45, 0.79, 1, 1)
+
+[node name="Cloud1" type="Polygon2D" parent="Background"]
+position = Vector2(220, 145)
+polygon = PackedVector2Array(-42, 4, -38, -7, -29, -8, -24, -18, -12, -20, -3, -13, 8, -16, 18, -10, 21, -3, 34, -3, 40, 4, 36, 11, -37, 12)
+color = Color(1, 1, 1, 0.9)
+
+[node name="Cloud2" type="Polygon2D" parent="Background"]
+position = Vector2(720, 110)
+scale = Vector2(0.9, 0.9)
+polygon = PackedVector2Array(-42, 4, -38, -7, -29, -8, -24, -18, -12, -20, -3, -13, 8, -16, 18, -10, 21, -3, 34, -3, 40, 4, 36, 11, -37, 12)
+color = Color(1, 1, 1, 0.8)
 
 [node name="FarHills" type="Polygon2D" parent="Background"]
 polygon = PackedVector2Array(-100, 230, 70, 150, 230, 220, 410, 125, 580, 220, 760, 145, 940, 225, 1130, 140, 1400, 245, 1400, 620, -100, 620)
@@ -56,6 +68,14 @@ position = Vector2(880, 120)
 [node name="Mushroom1" parent="Scenery" instance=ExtResource("11_mushroom")]
 position = Vector2(625, 170)
 scale = Vector2(1.4, 1.4)
+
+[node name="Tree2" parent="Scenery" instance=ExtResource("12_tree")]
+position = Vector2(790, 422)
+scale = Vector2(1.1, 1.1)
+
+[node name="RingmasterSign" parent="Scenery" instance=ExtResource("13_sign")]
+position = Vector2(170, 420)
+sign_text = "NO SLIME JUGGLING"
 
 [node name="Platform1" parent="." instance=ExtResource("4_platform")]
 position = Vector2(64, 329)

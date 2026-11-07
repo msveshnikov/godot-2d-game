@@ -3,6 +3,8 @@ extends Control
 signal start_pressed
 
 func _ready() -> void:
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	$Center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	$Center/Card/Buttons/StartButton.pressed.connect(_on_start_pressed)
 	$Center/Card/Buttons/ExitButton.pressed.connect(_on_exit_pressed)
 

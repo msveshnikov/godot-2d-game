@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_level"]
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2_player"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" path="res://scenes/objects/rock.tscn" id="10_rock"]
 [ext_resource type="PackedScene" path="res://scenes/objects/mushroom.tscn" id="11_mushroom"]
 [ext_resource type="PackedScene" path="res://scenes/objects/palm.tscn" id="12_palm"]
+[ext_resource type="PackedScene" path="res://scenes/objects/sign.tscn" id="13_sign"]
 
 [node name="MooncheeseMine" type="Node2D"]
 script = ExtResource("1_level")
@@ -38,6 +39,21 @@ position = Vector2(1000, 75)
 polygon = PackedVector2Array(0, -38, 20, -32, 34, -18, 38, 0, 32, 20, 18, 34, 0, 38, -20, 32, -34, 18, -38, 0, -32, -20, -18, -34)
 color = Color(1, 0.93, 0.7, 1)
 
+[node name="Crater1" type="Polygon2D" parent="Background/Moon"]
+position = Vector2(-12, -4)
+polygon = PackedVector2Array(-4, 0, -3, -3, 0, -4, 3, -2, 4, 1, 1, 4, -2, 3)
+color = Color(0.84, 0.7, 0.44, 1)
+
+[node name="Crater2" type="Polygon2D" parent="Background/Moon"]
+position = Vector2(14, -8)
+polygon = PackedVector2Array(-3, 0, -2, -3, 1, -3, 3, -1, 2, 2, -1, 3)
+color = Color(0.84, 0.7, 0.44, 1)
+
+[node name="Crater3" type="Polygon2D" parent="Background/Moon"]
+position = Vector2(9, 16)
+polygon = PackedVector2Array(-3, 0, -2, -3, 1, -3, 3, -1, 2, 2, -1, 3)
+color = Color(0.84, 0.7, 0.44, 1)
+
 [node name="Scenery" type="Node2D" parent="."]
 z_index = -2
 
@@ -59,6 +75,14 @@ scale = Vector2(1.5, 1.5)
 [node name="Mushroom1" parent="Scenery" instance=ExtResource("11_mushroom")]
 position = Vector2(620, 170)
 scale = Vector2(1.3, 1.3)
+
+[node name="Mushroom2" parent="Scenery" instance=ExtResource("11_mushroom")]
+position = Vector2(470, 405)
+scale = Vector2(1.2, 1.2)
+
+[node name="MineWarning" parent="Scenery" instance=ExtResource("13_sign")]
+position = Vector2(170, 420)
+sign_text = "MOON CHEESE: OLD"
 
 [node name="Platform1" parent="." instance=ExtResource("4_platform")]
 position = Vector2(64, 329)

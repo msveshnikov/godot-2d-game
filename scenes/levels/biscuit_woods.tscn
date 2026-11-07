@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_level"]
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2_player"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" path="res://scenes/objects/tree.tscn" id="9_tree"]
 [ext_resource type="PackedScene" path="res://scenes/objects/rock.tscn" id="10_rock"]
 [ext_resource type="PackedScene" path="res://scenes/objects/mushroom.tscn" id="11_mushroom"]
+[ext_resource type="PackedScene" path="res://scenes/objects/sign.tscn" id="12_sign"]
 
 [node name="BiscuitWoods" type="Node2D"]
 script = ExtResource("1_level")
@@ -23,6 +24,17 @@ z_index = -20
 [node name="Sky" type="Polygon2D" parent="Background"]
 polygon = PackedVector2Array(-200, -200, 1200, -200, 1200, 600, -200, 600)
 color = Color(0.46, 0.86, 1, 1)
+
+[node name="Cloud1" type="Polygon2D" parent="Background"]
+position = Vector2(190, 145)
+polygon = PackedVector2Array(-42, 4, -38, -7, -29, -8, -24, -18, -12, -20, -3, -13, 8, -16, 18, -10, 21, -3, 34, -3, 40, 4, 36, 11, -37, 12)
+color = Color(1, 0.98, 0.86, 0.85)
+
+[node name="Cloud2" type="Polygon2D" parent="Background"]
+position = Vector2(690, 125)
+scale = Vector2(0.8, 0.8)
+polygon = PackedVector2Array(-42, 4, -38, -7, -29, -8, -24, -18, -12, -20, -3, -13, 8, -16, 18, -10, 21, -3, 34, -3, 40, 4, 36, 11, -37, 12)
+color = Color(1, 0.98, 0.86, 0.78)
 
 [node name="FarHills" type="Polygon2D" parent="Background"]
 polygon = PackedVector2Array(-100, 240, 40, 145, 180, 218, 350, 125, 520, 220, 680, 145, 850, 218, 1040, 130, 1200, 230, 1200, 600, -100, 600)
@@ -60,6 +72,14 @@ position = Vector2(565, 190)
 [node name="Mushroom2" parent="Scenery" instance=ExtResource("11_mushroom")]
 position = Vector2(815, 158)
 scale = Vector2(1.3, 1.3)
+
+[node name="Mushroom3" parent="Scenery" instance=ExtResource("11_mushroom")]
+position = Vector2(470, 405)
+scale = Vector2(1.2, 1.2)
+
+[node name="WelcomeSign" parent="Scenery" instance=ExtResource("12_sign")]
+position = Vector2(160, 420)
+sign_text = "CRUMBS BITE!"
 
 [node name="Platform1" parent="." instance=ExtResource("4_platform")]
 position = Vector2(64, 329)

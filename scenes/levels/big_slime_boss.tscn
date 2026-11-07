@@ -124,6 +124,16 @@ position = Vector2(795, 265)
 scale = Vector2(0.65, 1)
 tile_column = 4
 
+[node name="UpperLeftStep" parent="." instance=ExtResource("4_platform")]
+position = Vector2(310, 245)
+scale = Vector2(0.65, 1)
+tile_column = 4
+
+[node name="UpperRightStep" parent="." instance=ExtResource("4_platform")]
+position = Vector2(690, 245)
+scale = Vector2(0.65, 1)
+tile_column = 4
+
 [node name="Player" parent="." instance=ExtResource("2_player")]
 position = Vector2(70, 321)
 
@@ -141,5 +151,14 @@ position = Vector2(120, 295)
 
 [node name="Coin4" parent="." instance=ExtResource("5_coin")]
 position = Vector2(865, 295)
+
+[node name="Coin5" parent="." instance=ExtResource("5_coin")]
+position = Vector2(310, 210)
+
+[node name="Coin6" parent="." instance=ExtResource("5_coin")]
+position = Vector2(690, 210)
+
+[node name="Coin7" parent="." instance=ExtResource("5_coin")]
+position = Vector2(500, 205)
 
 [node name="HUD" parent="." instance=ExtResource("3_hud")]

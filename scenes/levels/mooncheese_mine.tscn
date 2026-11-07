@@ -126,6 +126,21 @@ position = Vector2(720, 155)
 travel = Vector2(28, 0)
 cycles_per_second = 0.24
 
+[node name="BranchPlatform1" parent="." instance=ExtResource("4_platform")]
+position = Vector2(275, 265)
+scale = Vector2(0.75, 1)
+tile_column = 8
+
+[node name="BranchPlatform2" parent="." instance=ExtResource("4_platform")]
+position = Vector2(565, 205)
+scale = Vector2(0.75, 1)
+tile_column = 8
+
+[node name="MovingPlatform3" parent="." instance=ExtResource("7_moving")]
+position = Vector2(1000, 102)
+travel = Vector2(0, 24)
+cycles_per_second = 0.26
+
 [node name="Player" parent="." instance=ExtResource("2_player")]
 position = Vector2(64, 320)
 
@@ -142,6 +157,11 @@ move_speed = 76.0
 position = Vector2(1115, 110)
 purple = true
 move_speed = 82.0
+
+[node name="Slime4" parent="." instance=ExtResource("6_slime")]
+position = Vector2(565, 195)
+patrol_distance = 22.0
+move_speed = 72.0
 
 [node name="Coin1" parent="." instance=ExtResource("5_coin")]
 position = Vector2(65, 275)
@@ -166,6 +186,15 @@ position = Vector2(960, 95)
 
 [node name="Coin8" parent="." instance=ExtResource("5_coin")]
 position = Vector2(1130, 65)
+
+[node name="BranchCoin1" parent="." instance=ExtResource("5_coin")]
+position = Vector2(275, 232)
+
+[node name="BranchCoin2" parent="." instance=ExtResource("5_coin")]
+position = Vector2(565, 172)
+
+[node name="BranchCoin3" parent="." instance=ExtResource("5_coin")]
+position = Vector2(1000, 68)
 
 [node name="Goal" parent="." instance=ExtResource("8_goal")]
 position = Vector2(1140, 65)

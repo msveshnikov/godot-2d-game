@@ -1,6 +1,7 @@
 extends Node2D
 
 const TITLE_SCENE := preload("res://scenes/title_screen.tscn")
+const TouchControls := preload("res://scripts/touch_controls.gd")
 const LEVEL_SCENES: Array[PackedScene] = [
 	preload("res://scenes/levels/biscuit_woods.tscn"),
 	preload("res://scenes/levels/wobblepop_bridge.tscn"),
@@ -15,9 +16,17 @@ const LEVEL_SCENES: Array[PackedScene] = [
 
 var current_level_index := 0
 var current_scene: Node
-var playing := false
+var playing := false:
+	set(value):
+		playing = value
+		if touch_controls:
+			touch_controls.active = value
+var touch_controls: CanvasLayer
 
 func _ready() -> void:
+	touch_controls = TouchControls.new()
+	touch_controls.restart_pressed.connect(_restart_level)
+	add_child(touch_controls)
 	$Music.finished.connect(_restart_music)
 	$Music.play()
 	_show_title()
@@ -72,4 +81,8 @@ func _restart_music() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if playing and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
+		_restart_level()
+
+func _restart_level() -> void:
+	if playing:
 		_load_level(current_level_index)

@@ -2,6 +2,8 @@
 
 A small 2D platformer built in Godot 4.7. The player controls a knight exploring a candy-coated world, collecting coins, avoiding hazards, stomping slimes, and defeating a final boss to save the Snack Realm.
 
+**▶ Play in your browser (desktop or mobile): https://severance.lol/1/**
+
 ![alt text](image.png)
 
 ## Gameplay

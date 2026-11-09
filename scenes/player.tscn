@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dxwpcmmldsgvg" path="res://scripts/player.gd" id="1_g2els"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sgw3u"]
-size = Vector2(13, 10)
+size = Vector2(12, 17)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
 atlas = ExtResource("1_3vyb7")
@@ -54,7 +54,7 @@ _data = {
 script = ExtResource("1_g2els")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2107630617]
-position = Vector2(-0.5, -5)
+position = Vector2(0, -8.5)
 shape = SubResource("RectangleShape2D_sgw3u")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=300050212]
@@ -65,9 +65,12 @@ frame = 3
 frame_progress = 0.9745872
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.7, 1.7)
+zoom = Vector2(3.4, 3.4)
 position_smoothing_enabled = true
-position_smoothing_speed = 6.0
+position_smoothing_speed = 7.0
+drag_vertical_enabled = true
+drag_top_margin = 0.25
+drag_bottom_margin = 0.1
 limit_left = -60
 limit_right = 1200
 limit_top = -180

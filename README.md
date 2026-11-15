@@ -1,89 +1,121 @@
-# Knight of the Snack Realm
+<div align="center">
 
-A small 2D platformer built in Godot 4.7. The player controls a knight exploring a candy-coated world, collecting coins, avoiding hazards, stomping slimes, and defeating a final boss to save the Snack Realm.
+# 🍬⚔️ Knight of the Snack Realm
 
-**▶ Play in your browser (desktop or mobile): https://severance.lol/1/**
+### A tiny knight. A kingdom of sweets. One giant slime.
 
-![alt text](image.png)
+**Jump, collect, and conquer your way through a candy-coated 2D adventure!**
 
-## Gameplay
+Explore colorful levels, stomp mischievous slimes, dodge tricky hazards, and defeat the mighty **Big Slime** to save the Snack Realm.
 
-- Traverse multiple themed levels
-- Collect coins and reach the goal flag
-- Jump on enemies to defeat them
-- Navigate moving platforms and hazards
-- Face a boss battle against the Big Slime
-- Restart a level quickly with `R`
+[![Play Now](https://img.shields.io/badge/PLAY_NOW-Free_in_Browser-ff4f81?style=for-the-badge)](https://severance.lol/1/)
+[![Godot](https://img.shields.io/badge/Godot-4.7-478cbf?style=for-the-badge&logo=godotengine&logoColor=white)](https://godotengine.org/)
+![Genre](https://img.shields.io/badge/Genre-2D_Platformer-9b5de5?style=for-the-badge)
+![Platforms](https://img.shields.io/badge/Platforms-Web_%7C_Android-20a88b?style=for-the-badge)
 
-## Controls
+**[🎮 Play Online](https://severance.lol/1/) · [🕹️ Controls](#-controls) · [🛠️ Run Locally](#-run-locally)**
 
-### Keyboard
+![Knight of the Snack Realm gameplay screenshot](image.png)
 
-- `A` / `D` or `Left` / `Right`: move
-- `W` / `Up` / `Space`: jump (hold for a higher jump)
-- `R`: restart current level
+</div>
 
-### Touch (phones & tablets)
+---
 
-On-screen controls appear automatically on touch devices, both in the Android build and in mobile browsers:
+## 🌈 Welcome to the Snack Realm
 
-- **Left half of the screen** – move. Slide your thumb between the ◀ / ▶ arrows to change direction without lifting it.
-- **Right half of the screen** – jump. The whole half is the jump area, so you don't have to hit the button exactly; hold for a higher jump.
-- **↻ button (top-right)** – restart the current level.
+A sweet little world is in big trouble! Take control of a brave knight, leap across moving platforms, grab shiny coins, and battle bouncing slimes. Every level brings new challenges on the way to a showdown with the **Big Slime**.
 
-Multitouch works, so you can run and jump at the same time. The game is landscape-only. In a mobile browser, a "rotate your device" hint shows in portrait, and the first tap switches to fullscreen and locks landscape where the browser allows it (Android Chrome; iPhone Safari doesn't support the fullscreen API, so use *Add to Home Screen* instead).
+### ✨ Game Highlights
 
-## How to run
+- 🍭 **Colorful levels** — Explore multiple candy-themed stages.
+- 🪙 **Coins and goals** — Collect treasure and reach each finish flag.
+- 🟢 **Slime-stomping action** — Jump on enemies to defeat them.
+- ⚙️ **Platforming challenges** — Master moving platforms and avoid hazards.
+- 👑 **Final boss** — Face the formidable Big Slime.
+- 📱 **Play anywhere** — Desktop and mobile browser support, plus Android export.
+- 🔄 **Instant retries** — Restart with a single key or tap.
 
-1. Install Godot 4.7 or newer.
-2. Open this folder in Godot.
-3. Open `project.godot`.
-4. Press Play or run the main scene.
+> **Ready for an adventure? [▶ Play Knight of the Snack Realm now!](https://severance.lol/1/)**
 
-## Web (HTML5) export
+## 🕹️ Controls
 
-The project includes a **Web** export preset that works on desktop and mobile browsers:
+| Action | Keyboard | Touchscreen |
+|---|---|---|
+| Move | `A` / `D` or `←` / `→` | Left half: slide between ◀ / ▶ arrows |
+| Jump | `W` / `↑` / `Space` | Tap the right half |
+| Jump higher | Hold the jump key | Hold the right half |
+| Restart | `R` | ↻ button in the top-right |
 
-- Single-threaded build (`thread_support=false`), so it does **not** need special `COOP`/`COEP` headers and runs on any static host (GitHub Pages, itch.io, Netlify…) and on iOS Safari.
-- Uses the Compatibility (WebGL 2) renderer on web (`rendering_method.web`); desktop and Android keep the Mobile renderer.
-- PWA enabled: on a phone you can *Add to Home Screen* and it opens fullscreen in landscape.
+Touch controls appear automatically on phones and tablets, in mobile browsers and Android builds. **Multitouch** lets you move and jump at the same time.
 
-**Export from the editor:** *Project → Export… → Web → Export Project* (install the export templates first if Godot asks).
+The game is designed for **landscape orientation**. In mobile browsers, portrait mode shows a rotate-device hint. On supported browsers, tapping the game can enter fullscreen and lock landscape. On iPhone Safari, use **Add to Home Screen** for an app-like experience.
 
-**Export from the command line:**
+## 🛠️ Run Locally
 
-```sh
+1. Install [Godot 4.7](https://godotengine.org/) or newer.
+2. Clone this repository:
+
+   ```bash
+   git clone https://github.com/msveshnikov/godot-2d-game.git
+   ```
+
+3. Import/open `project.godot` in Godot.
+4. Press **F5** to play.
+
+### 🌐 Web (HTML5) export
+
+The included Web export preset supports desktop and mobile browsers:
+
+- **Single-threaded build** — No special COOP/COEP headers needed.
+- **Compatibility (WebGL 2) renderer** on the web.
+- **PWA support** — Add the game to your phone's home screen.
+
+Export in **Project → Export → Web → Export Project**, or from the command line (after installing Godot export templates):
+
+```bash
+mkdir -p build/web
 godot --headless --export-release "Web" build/web/index.html
 ```
 
-**Test locally:**
+Test locally:
 
-```sh
+```bash
 cd build/web
 python -m http.server 8000
 ```
 
-Then open `http://localhost:8000`. To try it on a phone, open `http://<your-PC-IP>:8000` on the same Wi-Fi network.
+Open **http://localhost:8000**. To test on a phone connected to the same Wi-Fi network, use your computer's local IP address. Do not open the exported `index.html` directly from disk (`file://`); serve it over HTTP. Installing a PWA from a hosted site requires HTTPS.
 
-> Opening `index.html` straight from disk (`file://`) won't work. Browsers need it served over HTTP. The PWA install option also needs HTTPS (any real host provides it).
+For **itch.io**, ZIP the *contents* of `build/web/`, upload as an HTML game, and enable **Mobile friendly** (landscape).
 
-**itch.io:** zip the *contents* of `build/web/`, upload it as an HTML game, and enable "Mobile friendly" (landscape).
+### 🤖 Android export
 
-## Android export
+The repository includes an Android export preset. Configure the Android SDK and signing settings in Godot, then use **Project → Export → Android**. The project includes Android release configuration; this does not imply that the game is already published on Google Play.
 
-There is also an **Android** preset (arm64). Export it from *Project → Export… → Android*.
+## 📁 Project Structure
 
-## Project structure
+```text
+assets/              Sprites, fonts, music, sound effects
+scenes/              Levels, player, HUD, title screen, game objects
+scripts/             Gameplay logic and mobile touch controls
+project.godot        Godot project settings
+export_presets.cfg   Web and Android export configuration
+```
 
-- `scenes/` – level and UI scenes
-- `scripts/` – gameplay logic and scene behavior (`touch_controls.gd` = on-screen mobile controls)
-- `assets/` – art, fonts, music, and sound effects
-- `project.godot` – Godot project configuration
+## ❤️ Credits
 
-## Credits
+Created with **Godot Engine**. The game assets and visuals are included in the project and designed for its whimsical snack-themed world.
 
-Assets and visuals are included in the project folder and are designed to fit the whimsical snack-themed world.
+This is a small, self-contained game project you can explore and modify.
 
-## Notes
+---
 
-This project is a lightweight, self-contained Godot game prototype. You can play it locally, in a browser, or on a phone, and modify it as you like.
+<div align="center">
+
+### 🍬 Ready to save the Snack Realm?
+
+[![Start Playing](https://img.shields.io/badge/START_PLAYING-LET'S_GO!-ff4f81?style=for-the-badge)](https://severance.lol/1/)
+
+**Made with Godot · Built for fun**
+
+</div>

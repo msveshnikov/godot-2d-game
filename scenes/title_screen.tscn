@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/title_screen.gd" id="1_script"]
 [ext_resource type="FontFile" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_font"]
@@ -18,6 +18,44 @@ content_margin_left = 28.0
 content_margin_top = 24.0
 content_margin_right = 28.0
 content_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_start"]
+bg_color = Color(1, 1, 1, 1)
+border_color = Color(1, 0.91, 0.5, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 6
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_start_hover"]
+bg_color = Color(1, 0.97, 0.82, 1)
+border_color = Color(1, 0.8, 0.25, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 6
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_start_pressed"]
+bg_color = Color(0.88, 0.86, 0.92, 1)
+border_color = Color(1, 0.8, 0.25, 1)
+border_width_left = 3
+border_width_top = 6
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_focus"]
 
 [node name="TitleScreen" type="Control"]
 layout_mode = 3
@@ -87,8 +125,17 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.2, 0.11, 0.29, 1)
+theme_override_colors/font_hover_color = Color(0.2, 0.11, 0.29, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.11, 0.29, 1)
+theme_override_colors/font_focus_color = Color(0.2, 0.11, 0.29, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.2, 0.11, 0.29, 1)
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_start")
+theme_override_styles/hover = SubResource("StyleBoxFlat_start_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_start_pressed")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_start_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
 text = "START THE SNACK QUEST!"
 
 [node name="ExitButton" type="Button" parent="Center/Card/Buttons"]
